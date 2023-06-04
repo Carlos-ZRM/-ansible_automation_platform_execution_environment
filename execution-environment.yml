@@ -1,0 +1,27 @@
+---
+version: 3
+
+
+images:
+  base_image:
+    name: registry.redhat.io/ansible-automation-platform-23/ee-29-rhel8@sha256:4674870d930608db76d57e08c5e549121893f3c99b185ed6c055f56baf953200
+
+#build_arg_defaults:
+#  EE_BASE_IMAGE: 'registry.redhat.io/ansible-automation-platform-23/ee-29-rhel8@sha256:4674870d930608db76d57e08c5e549121893f3c99b185ed6c055f56baf953200'
+  #EE_BASE_IMAGE: 'registry.redhat.io/ansible-automation-platform-23/ee-supported-rhel8:latest'
+ 
+dependencies:
+  galaxy: requirements.yml
+  python: requirements.txt
+  ansible_core:
+    # Require minimum of 2.13.10 to get ansible-inventory --limit option
+    package_pip: ansible-core>=2.13.10
+  ansible_runner:
+    package_pip: ansible-runner
+
+additional_build_files:
+    - src: ansible.cfg
+      dest: configs
+
+options:
+    package_manager_path: /usr/bin/microdnf
